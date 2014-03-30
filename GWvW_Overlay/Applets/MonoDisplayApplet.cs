@@ -15,9 +15,26 @@ namespace GWvW_Overlay
 {
     public partial class MonoDisplayApplet : BaseApplet
     {
-        public MonoDisplayApplet()
+        //private String _bl;
+        //private Label[] lines;
+        //private int currentLine;
+        public WvwMatch_ match { get; set; }
+
+        public MonoDisplayApplet(ref WvwMatch_ match)
+            : this(LcdType.Mono, ref match)
+        {
+
+        }
+
+        public MonoDisplayApplet(LcdType lcdType, ref WvwMatch_ match)
+            : base(lcdType)
         {
             InitializeComponent();
+        }
+
+        protected override void OnDataUpdate(object sender, EventArgs e)
+        {
+
         }
     }
 }
