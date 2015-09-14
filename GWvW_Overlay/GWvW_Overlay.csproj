@@ -29,7 +29,7 @@
     <ProductName>GWvW Overlay</ProductName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>0.4.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -387,6 +387,10 @@
     <Resource Include="Resources\panel2.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GWvW_Overlay-Location-Server-Contracts\GWvW_Overlay-Location-Server-Contracts\GWvW_Overlay-Location-Server-Contracts.csproj">
+      <Project>{05a81893-56fa-4635-a854-6da00368eafd}</Project>
+      <Name>GWvW_Overlay-Location-Server-Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logitech-LCD\Logitech-LCD\Logitech-LCD.csproj">
       <Project>{65c75235-f2ec-4aad-a58e-e1371191dff0}</Project>
       <Name>Logitech-LCD</Name>

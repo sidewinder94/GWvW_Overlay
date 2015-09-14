@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GWvW_Overlay-UnitTests", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logitech-LED", "Logitech-LED\Logitech-LED\Logitech-LED.csproj", "{22EC485E-5D59-442D-9F39-BD1C046952E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GWvW_Overlay-Location-Server-Contracts", "GWvW_Overlay-Location-Server-Contracts\GWvW_Overlay-Location-Server-Contracts\GWvW_Overlay-Location-Server-Contracts.csproj", "{05A81893-56FA-4635-A854-6DA00368EAFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,17 +52,21 @@ Global
 		{22EC485E-5D59-442D-9F39-BD1C046952E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22EC485E-5D59-442D-9F39-BD1C046952E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22EC485E-5D59-442D-9F39-BD1C046952E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05A81893-56FA-4635-A854-6DA00368EAFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05A81893-56FA-4635-A854-6DA00368EAFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05A81893-56FA-4635-A854-6DA00368EAFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05A81893-56FA-4635-A854-6DA00368EAFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseUniversalClock = False
-		BuildVersion_AssemblyInfoFilename = 
-		BuildVersion_StartDate = 1975/10/21
-		BuildVersion_UpdateFileVersion = False
-		BuildVersion_UpdateAssemblyVersion = False
-		BuildVersion_BuildVersioningStyle = None.None.None.None
 		BuildVersion_ConfigurationName = Any
+		BuildVersion_BuildVersioningStyle = None.None.None.None
+		BuildVersion_UpdateAssemblyVersion = False
+		BuildVersion_UpdateFileVersion = False
+		BuildVersion_StartDate = 1975/10/21
+		BuildVersion_AssemblyInfoFilename = 
+		BuildVersion_UseUniversalClock = False
 	EndGlobalSection
 EndGlobal
