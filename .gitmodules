@@ -7,3 +7,6 @@
 [submodule "Logitech-LED"]
 	path = Logitech-LED
 	url = https://github.com/sidewinder94/Logitech-LED.git
+[submodule "GWvW_Overlay-Location-Server-Contracts"]
+	path = GWvW_Overlay-Location-Server-Contracts
+	url = https://github.com/sidewinder94/GWvW_Overlay-Location-Server-Contracts.git
