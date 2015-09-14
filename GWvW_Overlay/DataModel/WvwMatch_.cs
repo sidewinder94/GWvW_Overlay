@@ -8,6 +8,8 @@ using System.Windows;
 using GWvW_Overlay.Annotations;
 using GWvW_Overlay.Properties;
 using GWvW_Overlay.Resources.Lang;
+using GWvW_Overlay.Service;
+using GWvW_Overlay_Location_Server_Contracts;
 using Newtonsoft.Json;
 
 namespace GWvW_Overlay.DataModel
@@ -17,7 +19,7 @@ namespace GWvW_Overlay.DataModel
         private List<int> _worldIds;
         private List<World_Names_> _worlds = new List<World_Names_>(51);
         private Visibility _markersVisibility = Visibility.Hidden;
-        
+
 
 
         private readonly Positions _positions = new Positions();
@@ -25,7 +27,6 @@ namespace GWvW_Overlay.DataModel
         {
             get { return _positions; }
         }
-
 
         public Visibility MarkersVisibility
         {
@@ -42,7 +43,7 @@ namespace GWvW_Overlay.DataModel
 
         public WvwMatch_()
         {
-            
+
             Options = new Options_();
             CacheServerIDs();
         }

@@ -131,6 +131,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -203,6 +204,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.fr-FR.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service\LocationService.cs" />
     <Compile Include="SetOptions.xaml.cs">
       <DependentUpon>SetOptions.xaml</DependentUpon>
     </Compile>
@@ -257,6 +259,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\party_member.png" />
     <Resource Include="Resources\position.png" />
     <EmbeddedResource Include="Resources\Lang\Strings.de.resx" />
     <EmbeddedResource Include="Resources\Lang\Strings.es.resx" />
@@ -408,7 +411,6 @@
       <Name>MumbleLink-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
