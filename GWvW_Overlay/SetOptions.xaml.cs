@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using Logitech_LED;
 
 namespace GWvW_Overlay
 {
@@ -13,6 +14,10 @@ namespace GWvW_Overlay
         public Utils Utils = new Utils();
         public bool ListenForKey = false;
 
+        public Visibility KeyboardOptionsVisibility
+        {
+            get { return LogitechLed.Instance.IsInit ? Visibility.Visible : Visibility.Collapsed; }
+        }
 
         public WvwMatch_ matchUp
         {

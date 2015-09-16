@@ -160,7 +160,7 @@
     <value>German</value>
   </data>
   <data name="hotKeyGroupname" xml:space="preserve">
-    <value>Hotkey</value>
+    <value>Hotkey (Push to Show)</value>
   </data>
   <data name="newHotkeyButton" xml:space="preserve">
     <value>New Hotkey</value>
@@ -257,5 +257,30 @@
   </data>
   <data name="castles" xml:space="preserve">
     <value>Castles</value>
+  </data>
+  <data name="mumbleLinkLocalHeader" xml:space="preserve">
+    <value>Mumble Link / Position (Local)</value>
+  </data>
+  <data name="autoSwitchMap" xml:space="preserve">
+    <value>Automatic map switching</value>
+  </data>
+  <data name="displayPlayerposition" xml:space="preserve">
+    <value>Display Player Position</value>
+  </data>
+  <data name="keyboardServerLigthning" xml:space="preserve">
+    <value>Set the keyboard Lightning using the Home server color</value>
+  </data>
+  <data name="mumbleLinkSharedHeader" xml:space="preserve">
+    <value>Mumble Link / Position (Shared)</value>
+  </data>
+  <data name="positionSharingExplanation" xml:space="preserve">
+    <value>By default this feature is DISABLED, to enable it, you have to copy an API key associated to your account (account + character permissions) to the text box below.
+Your position will only be sent to the users that are using THIS application and belongs to the same server as you are (this is what your API Key is for : to check which server your account belongs to).</value>
+  </data>
+  <data name="apiKeyLabel" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="sharePositionLabel" xml:space="preserve">
+    <value>Share Position</value>
   </data>
 </root>

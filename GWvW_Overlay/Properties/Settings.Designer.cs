@@ -286,5 +286,29 @@ namespace GWvW_Overlay.Properties {
                 this["server_color_lightning"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool player_position_sharing {
+            get {
+                return ((bool)(this["player_position_sharing"]));
+            }
+            set {
+                this["player_position_sharing"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string player_api_key {
+            get {
+                return ((string)(this["player_api_key"]));
+            }
+            set {
+                this["player_api_key"] = value;
+            }
+        }
     }
 }

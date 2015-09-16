@@ -1,82 +1,116 @@
 ﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Properties="clr-namespace:GWvW_Overlay.Properties" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Name="Options" x:Class="GWvW_Overlay.SetOptions"
-    Title="Options" Height="520" Width="430.435"
+    xmlns:properties="clr-namespace:GWvW_Overlay.Properties" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Name="Options" x:Class="GWvW_Overlay.SetOptions"
+    Title="Options" Height="530" Width="840"
     ResizeMode="NoResize"
     Closing="SaveSettings" WindowStyle="ToolWindow" Foreground="Black" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Loaded="OnLoad"
     xmlns:localization ="clr-namespace:GWvW_Overlay.Resources.Lang">
     <Window.Resources>
         <localization:LocalizedStrings x:Key="LocalizedStrings"/>
+        <properties:Settings x:Key="Properties"/>
+        <Style TargetType="GroupBox">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="400"/>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="ComboStyle">
+            <Setter Property="Margin" Value="10,10,0,0"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
-        <GroupBox Header="{Binding Path=Locale.transparencyGroupName, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="94" Width="400" Foreground="Black">
-            <Canvas Margin="0,-15,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <GroupBox Header="{Binding Path=Locale.transparencyGroupName, Source={StaticResource LocalizedStrings}}" Margin="10,10,10,0" Height="94">
+                <Canvas Margin="0,-15,0,0">
 
-                <Slider x:Name="opticity_slider" HorizontalAlignment="Left" Value="{Binding opticity, Source={x:Static Properties:Settings.Default}}" 
-                    VerticalAlignment="Top" Width="277" Maximum="1" Minimum="0.4" Canvas.Left="95" Canvas.Top="28"/>
-                <Label Content="{Binding Path=Locale.transparencySliderMainWindowLabel, Source={StaticResource LocalizedStrings}}" Canvas.Top="24" Canvas.Left="6"/>
-                <Label Content="{Binding Path=Locale.transparencySliderTrackerWindowLabel, Source={StaticResource LocalizedStrings}}" Canvas.Top="51" Canvas.Left="6"/>
-                <Slider x:Name="opticity_slider_tracker" HorizontalAlignment="Left" Value="{Binding opticity_tracker, Source={x:Static Properties:Settings.Default}}" 
-                	VerticalAlignment="Top" Width="277" Maximum="1" Minimum="0.4" Canvas.Left="95" Canvas.Top="55"/>
+                    <Slider x:Name="opticity_slider" HorizontalAlignment="Left" Value="{Binding opticity, Source={x:Static properties:Settings.Default}}" 
+                        VerticalAlignment="Top" Width="277" Maximum="1" Minimum="0.4" Canvas.Left="95" Canvas.Top="28"/>
+                    <Label Content="{Binding Path=Locale.transparencySliderMainWindowLabel, Source={StaticResource LocalizedStrings}}" Canvas.Top="24" Canvas.Left="6"/>
+                    <Label Content="{Binding Path=Locale.transparencySliderTrackerWindowLabel, Source={StaticResource LocalizedStrings}}" Canvas.Top="51" Canvas.Left="6"/>
+                    <Slider x:Name="opticity_slider_tracker" HorizontalAlignment="Left" Value="{Binding opticity_tracker, Source={x:Static properties:Settings.Default}}" 
+                	    VerticalAlignment="Top" Width="277" Maximum="1" Minimum="0.4" Canvas.Left="95" Canvas.Top="55"/>
 
-            </Canvas>
-        </GroupBox>
-        <GroupBox Header="{Binding Path=Locale.hotKeyGroupname, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,213,0,0" Height="75" Width="400">
-            <Canvas>
-                <Label Content="{Binding Path=Locale.currentHotKeylabel, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="104" Canvas.Left="10" Canvas.Top="9" />
-                <Label x:Name="lblNewKey" Content=" " HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="104" Canvas.Left="268" Canvas.Top="13" />
-                <TextBox x:Name="txtbox_hotkey" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" Canvas.Left="68" Canvas.Top="10" IsReadOnly="True"/>
-                <Button x:Name="btnNewHotkey" Content="{Binding Path=Locale.newHotkeyButton, Source={StaticResource LocalizedStrings}}" Height="23" Canvas.Left="167" Canvas.Top="9" Click="btnNewHotkey_Click"/>
-                <Label Content="Press any key" Name="HotkeyAlert" Visibility="Hidden" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="123" Canvas.Left="268" Canvas.Top="7" Foreground="#FF9C0000" />
-            </Canvas>
-
-
-        </GroupBox>
-        <GroupBox Header="{Binding Path=Locale.otherGroupName, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Margin="10,293,0,0" VerticalAlignment="Top" Height="104" Width="400">
-            <Canvas>
-                <CheckBox x:Name="chkShowNames" Content="{Binding Path=Locale.displayObjNamesLabel, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" IsChecked="{Binding show_names, Source={x:Static Properties:Settings.Default}}" Canvas.Left="10" Canvas.Top="37"/>
-                <CheckBox x:Name="chkAlwaysTop" Content="{Binding Path=Locale.alwaysOnTopLabel, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="165" Canvas.Left="10" Canvas.Top="56" IsChecked="{Binding alwaysTop, Source={x:Static Properties:Settings.Default}}"/>
-                <RadioButton Name="langSpanish" Tag="Spanish" Content="{Binding Path=Locale.spanishLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="320" Canvas.Top="10" Checked="langSelection_Click"/>
-                <RadioButton Name="langFrench" Tag="French" Content="{Binding Path=Locale.frenchLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="184" Canvas.Top="10" Checked="langSelection_Click"/>
-                <RadioButton Name="langGerman" Tag="German" Content="{Binding Path=Locale.germanLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="250" Canvas.Top="10" Checked="langSelection_Click"/>
-                <RadioButton Name="langEnglish" Tag="English" Content="{Binding Path=Locale.englishLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="125" Canvas.Top="10" Checked="langSelection_Click"/>
-                <Label Content="{Binding Path=Locale.objectiveNamesLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="5"/>
-            </Canvas>
-        </GroupBox>
-        <GroupBox Header="{Binding Path=Locale.resetGroupName, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="99" Margin="277,109,0,0" VerticalAlignment="Top" Width="133">
-            <Canvas>
-                <Button x:Name="BtnResetPosTrack" Content="{Binding Path=Locale.resetTrackerWindowButton, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="10" Width="95" Click="btnResetPosTracker_Click"/>
-                <Button x:Name="BtnResetPosMain" Content="{Binding Path=Locale.resetMainWindowButton, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="37" Width="95" Click="btnResetPosMain_Click"/>
-            </Canvas>
-        </GroupBox>
-        <GroupBox Header="{Binding Path=Locale.trackerGroupName, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="99" Margin="10,109,0,0" VerticalAlignment="Top" Width="262">
-            <Canvas>
-
-                <CheckBox x:Name="chkTrackerDisplay" Content="{Binding Path=Locale.displayEventTrackerLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="10" IsChecked="{Binding show_tracker, Source={x:Static Properties:Settings.Default}}" Click="chkTrackerDisplay_Click"/>
-                <CheckBox x:Name="chkCamp" Content="{Binding Path=Locale.showCampTimtersLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="52" Visibility="Hidden" />
-                <CheckBox x:Name="chkEventLog" Content="{Binding Path=Locale.displayEventLogLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="31" IsChecked="{Binding tracker_show_event, Source={x:Static Properties:Settings.Default}}" Click="chkEventLog_Click" />
-                <Label x:Name="lblCacheSize" Content="{Binding Path=Locale.cacheInfoLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="0" Canvas.Top="50"/>
-            </Canvas>
-        </GroupBox>
-        <GroupBox Header="{Binding Path=Locale.autoMatchGroupname, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="85" Margin="10,402,0,0" VerticalAlignment="Top" Width="400">
-            <Canvas>
-                <ComboBox Name="CmbbxMatchSelection" Canvas.Left="93" Canvas.Top="12" Width="184" ItemsSource="{Binding Path=World, Mode=OneTime}" DisplayMemberPath="name" SelectedValuePath="id" SelectedValue="{Binding home_server, Source={x:Static Properties:Settings.Default}}" />
-                <Label Content="{Binding Path=Locale.serverSelectionLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="10"/>
-                <CheckBox Name="chkbxAutoMatchSelect" Content="{Binding Path=Locale.automaticMatchLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="93" Canvas.Top="37" IsChecked="{Binding auto_matchup, Source={x:Static Properties:Settings.Default}}">
-                    <CheckBox.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock FontWeight="Bold" Text="{Binding Path=Locale.autoMatchGroupname, Source={StaticResource LocalizedStrings}}"/>
-                                <TextBlock Text="{Binding Path=Locale.automaticMatchDesc, Source={StaticResource LocalizedStrings}}"/>
-                            </StackPanel>
-                        </ToolTip>
-                    </CheckBox.ToolTip>
-                </CheckBox>
-            </Canvas>
-        </GroupBox>
+                </Canvas>
+            </GroupBox>
+            <GroupBox Header="{Binding Path=Locale.hotKeyGroupname, Source={StaticResource LocalizedStrings}}" Margin="10,213,0,0" Height="75" >
+                <Canvas>
+                    <Label Content="{Binding Path=Locale.currentHotKeylabel, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="104" Canvas.Left="10" Canvas.Top="9" />
+                    <Label x:Name="lblNewKey" Content=" " HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="104" Canvas.Left="268" Canvas.Top="13" />
+                    <TextBox x:Name="txtbox_hotkey" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" Canvas.Left="68" Canvas.Top="10" IsReadOnly="True"/>
+                    <Button x:Name="btnNewHotkey" Content="{Binding Path=Locale.newHotkeyButton, Source={StaticResource LocalizedStrings}}" Height="23" Canvas.Left="167" Canvas.Top="9" Click="btnNewHotkey_Click"/>
+                    <Label Content="Press any key" Name="HotkeyAlert" Visibility="Hidden" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="123" Canvas.Left="268" Canvas.Top="7" Foreground="#FF9C0000" />
+                </Canvas>
 
 
+            </GroupBox>
+            <GroupBox Header="{Binding Path=Locale.otherGroupName, Source={StaticResource LocalizedStrings}}" Margin="10,293,0,0" Height="104" >
+                <Canvas>
+                    <CheckBox x:Name="chkShowNames" Content="{Binding Path=Locale.displayObjNamesLabel, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" IsChecked="{Binding show_names, Source={x:Static properties:Settings.Default}}" Canvas.Left="10" Canvas.Top="37"/>
+                    <CheckBox x:Name="chkAlwaysTop" Content="{Binding Path=Locale.alwaysOnTopLabel, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="165" Canvas.Left="10" Canvas.Top="56" IsChecked="{Binding alwaysTop, Source={x:Static properties:Settings.Default}}"/>
+                    <RadioButton Name="langSpanish" Tag="Spanish" Content="{Binding Path=Locale.spanishLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="320" Canvas.Top="10" Checked="langSelection_Click"/>
+                    <RadioButton Name="langFrench" Tag="French" Content="{Binding Path=Locale.frenchLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="184" Canvas.Top="10" Checked="langSelection_Click"/>
+                    <RadioButton Name="langGerman" Tag="German" Content="{Binding Path=Locale.germanLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="250" Canvas.Top="10" Checked="langSelection_Click"/>
+                    <RadioButton Name="langEnglish" Tag="English" Content="{Binding Path=Locale.englishLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="125" Canvas.Top="10" Checked="langSelection_Click"/>
+                    <Label Content="{Binding Path=Locale.objectiveNamesLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="5"/>
+                </Canvas>
+            </GroupBox>
+            <GroupBox Header="{Binding Path=Locale.resetGroupName, Source={StaticResource LocalizedStrings}}" Height="99" Margin="277,109,0,0" Width="133">
+                <Canvas>
+                    <Button x:Name="BtnResetPosTrack" Content="{Binding Path=Locale.resetTrackerWindowButton, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="10" Width="95" Click="btnResetPosTracker_Click"/>
+                    <Button x:Name="BtnResetPosMain" Content="{Binding Path=Locale.resetMainWindowButton, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="37" Width="95" Click="btnResetPosMain_Click"/>
+                </Canvas>
+            </GroupBox>
+            <GroupBox Header="{Binding Path=Locale.trackerGroupName, Source={StaticResource LocalizedStrings}}"  Height="99" Margin="10,109,0,0" Width="262">
+                <Canvas>
+
+                    <CheckBox x:Name="chkTrackerDisplay" Content="{Binding Path=Locale.displayEventTrackerLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="10" IsChecked="{Binding show_tracker, Source={x:Static properties:Settings.Default}}" Click="chkTrackerDisplay_Click"/>
+                    <CheckBox x:Name="chkCamp" Content="{Binding Path=Locale.showCampTimtersLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="52" Visibility="Hidden" />
+                    <CheckBox x:Name="chkEventLog" Content="{Binding Path=Locale.displayEventLogLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="31" IsChecked="{Binding tracker_show_event, Source={x:Static properties:Settings.Default}}" Click="chkEventLog_Click" />
+                    <Label x:Name="lblCacheSize" Content="{Binding Path=Locale.cacheInfoLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="0" Canvas.Top="50"/>
+                </Canvas>
+            </GroupBox>
+            <GroupBox Header="{Binding Path=Locale.autoMatchGroupname, Source={StaticResource LocalizedStrings}}" Height="85" Margin="10,402,0,0">
+                <Canvas>
+                    <ComboBox Name="CmbbxMatchSelection" Canvas.Left="93" Canvas.Top="12" Width="184" ItemsSource="{Binding Path=World, Mode=OneTime}" DisplayMemberPath="name" SelectedValuePath="id" SelectedValue="{Binding home_server, Source={x:Static properties:Settings.Default}}" />
+                    <Label Content="{Binding Path=Locale.serverSelectionLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="10" Canvas.Top="10"/>
+                    <CheckBox Name="chkbxAutoMatchSelect" Content="{Binding Path=Locale.automaticMatchLabel, Source={StaticResource LocalizedStrings}}" Canvas.Left="93" Canvas.Top="37" IsChecked="{Binding auto_matchup, Source={x:Static properties:Settings.Default}}">
+                        <CheckBox.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Locale.autoMatchGroupname, Source={StaticResource LocalizedStrings}}"/>
+                                    <TextBlock Text="{Binding Path=Locale.automaticMatchDesc, Source={StaticResource LocalizedStrings}}"/>
+                                </StackPanel>
+                            </ToolTip>
+                        </CheckBox.ToolTip>
+                    </CheckBox>
+                </Canvas>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Column="1">
+            <GroupBox Header="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.mumbleLinkLocalHeader}" Margin="10,10,0,0">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Style="{StaticResource ComboStyle}" Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.autoSwitchMap}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=auto_switch_map}"/>
+                    <CheckBox Style="{StaticResource ComboStyle}" Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.displayPlayerposition}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=player_position}"/>
+                    <CheckBox Style="{StaticResource ComboStyle}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=server_color_lightning}" Margin="10,10,0,5">
+                        <TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.keyboardServerLigthning}" TextWrapping="WrapWithOverflow"/>
+                    </CheckBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.mumbleLinkSharedHeader}" Margin="10,134,0,0">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.positionSharingExplanation}" TextWrapping="WrapWithOverflow"/>
+                    <DockPanel Margin="0,10,0,10">
+                        <Label Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.apiKeyLabel}" DockPanel.Dock="Left"/>
+                        <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=player_api_key}"  HorizontalAlignment="Stretch" DockPanel.Dock="Left"/>
+                    </DockPanel>
+                    <CheckBox Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.sharePositionLabel}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=player_position_sharing}" Margin="10,10,0,5"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
     </Grid>
 </Window>

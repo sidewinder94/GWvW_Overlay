@@ -239,7 +239,8 @@ namespace GWvW_Overlay
             //rtvMatchDetails(null, null);
         }
 
-        public void GetBorderlandSelection()
+
+        public static void SetKeyboardColor(WvwMatch_ WvwMatch)
         {
             if (Settings.Default.server_color_lightning && LogitechLed.Instance.IsInit)
             {
@@ -260,6 +261,11 @@ namespace GWvW_Overlay
 
                 }
             }
+        }
+
+        public void GetBorderlandSelection()
+        {
+            SetKeyboardColor(WvwMatch);
             CnvsBlSelection.Visibility = Visibility.Visible;
             LblBlueBl.Content = WvwMatch.GetServerName("blue");
             LblGreenBl.Content = WvwMatch.GetServerName("green");
@@ -335,6 +341,7 @@ namespace GWvW_Overlay
 
         public void UpdateTimers(Object source, ElapsedEventArgs e)
         {
+            SetKeyboardColor(WvwMatch);
             if (WvwMatch.Details == null)
                 return;
 

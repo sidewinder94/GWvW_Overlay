@@ -7,7 +7,7 @@ namespace GWvW_Overlay.Resources.Lang
         {
         }
 
-        private static Strings locale = new Strings();
-        public Strings Locale { get { return locale; } }
+        private static readonly Strings _locale = new Strings();
+        public Strings Locale { get { return _locale; } }
     }
 }

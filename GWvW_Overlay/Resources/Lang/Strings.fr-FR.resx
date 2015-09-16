@@ -160,7 +160,7 @@
     <value>Allemand</value>
   </data>
   <data name="hotKeyGroupname" xml:space="preserve">
-    <value>Raccourcis</value>
+    <value>Raccourcis (Appuyer pour Montrer)</value>
   </data>
   <data name="newHotkeyButton" xml:space="preserve">
     <value>Nouveau Raccourci</value>
@@ -257,5 +257,30 @@
   </data>
   <data name="castles" xml:space="preserve">
     <value>Chateaux</value>
+  </data>
+  <data name="mumbleLinkLocalHeader" xml:space="preserve">
+    <value>Mumble Link / Position (Local)</value>
+  </data>
+  <data name="autoSwitchMap" xml:space="preserve">
+    <value>Changement de carte automatique</value>
+  </data>
+  <data name="displayPlayerposition" xml:space="preserve">
+    <value>Afficher l'emplacement du Joueur</value>
+  </data>
+  <data name="keyboardServerLigthning" xml:space="preserve">
+    <value>Changer le rétro-éclairage du clavier en fonction de la couleur du serveur</value>
+  </data>
+  <data name="mumbleLinkSharedHeader" xml:space="preserve">
+    <value>Mumble Link / Position (Partagé)</value>
+  </data>
+  <data name="positionSharingExplanation" xml:space="preserve">
+    <value>Par défaut cette fonctionnalité est DÉSACTIVÉE, pour l'activer, vous devez copier une clé d'accès à l'API (autorisation de lecture du compte et des personnages) dans la boite de texte ci-dessous.
+Cette clé servira à n'envoyer votre position qu'aux joueurs appartenant au même serveur que vous.</value>
+  </data>
+  <data name="apiKeyLabel" xml:space="preserve">
+    <value>Clé API</value>
+  </data>
+  <data name="sharePositionLabel" xml:space="preserve">
+    <value>Partager la Position</value>
   </data>
 </root>
