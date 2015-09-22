@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using GWvW_Overlay.Service;
 using Logitech_LED;
 
 namespace GWvW_Overlay
@@ -156,6 +157,16 @@ namespace GWvW_Overlay
                     CmbbxMatchSelection.SelectedItem = item;
                 }
             }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            LocationService.Connection.StartSending();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            LocationService.Connection.StartSending();
         }
     }
 }

@@ -212,6 +212,7 @@
     <Compile Include="Utils.cs" />
     <Compile Include="DataModel\World_Names_.cs" />
     <Compile Include="DataModel\WvwMatch_.cs" />
+    <Compile Include="Validators\APIKeyValidator.cs" />
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -414,7 +415,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_AssemblyInfoFilename="" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_StartDate="1975/10/21" />
+      <UserProperties BuildVersion_StartDate="1975/10/21" BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_AssemblyInfoFilename="" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

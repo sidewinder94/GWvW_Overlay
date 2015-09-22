@@ -139,7 +139,7 @@ namespace GWvW_Overlay
                 _currentMapId = map;
             };
 
-            _mapDetectTimer.Enabled = Properties.Settings.Default.auto_switch_map;
+            _mapDetectTimer.Enabled = Settings.Default.auto_switch_map;
 
             _t3.Interval = 1000;
             _t3.Elapsed += UpdateTimers;
@@ -149,7 +149,7 @@ namespace GWvW_Overlay
             Console.WriteLine(CmbbxHomeServerSelection.Items.Count);
             foreach (World_Names_ item in CmbbxHomeServerSelection.Items)
             {
-                if (item.id == (int)Properties.Settings.Default["home_server"])
+                if (item.id == Settings.Default.home_server)
                     CmbbxHomeServerSelection.SelectedItem = item;
             }
 

@@ -2,10 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:properties="clr-namespace:GWvW_Overlay.Properties" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Name="Options" x:Class="GWvW_Overlay.SetOptions"
-    Title="Options" Height="530" Width="840"
+    Title="Options" Height="530" Width="860"
     ResizeMode="NoResize"
     Closing="SaveSettings" WindowStyle="ToolWindow" Foreground="Black" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Loaded="OnLoad"
-    xmlns:localization ="clr-namespace:GWvW_Overlay.Resources.Lang">
+    xmlns:localization ="clr-namespace:GWvW_Overlay.Resources.Lang"
+    xmlns:validators="clr-namespace:GWvW_Overlay.Validators">
     <Window.Resources>
         <localization:LocalizedStrings x:Key="LocalizedStrings"/>
         <properties:Settings x:Key="Properties"/>
@@ -92,7 +93,7 @@
             </GroupBox>
         </Grid>
         <Grid Grid.Column="1">
-            <GroupBox Header="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.mumbleLinkLocalHeader}" Margin="10,10,0,0">
+            <GroupBox Header="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.mumbleLinkLocalHeader}" Margin="10,10,10,0">
                 <StackPanel Orientation="Vertical">
                     <CheckBox Style="{StaticResource ComboStyle}" Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.autoSwitchMap}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=auto_switch_map}"/>
                     <CheckBox Style="{StaticResource ComboStyle}" Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.displayPlayerposition}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=player_position}"/>
@@ -101,14 +102,22 @@
                     </CheckBox>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.mumbleLinkSharedHeader}" Margin="10,134,0,0">
+            <GroupBox Header="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.mumbleLinkSharedHeader}" Margin="10,134,10,0">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.positionSharingExplanation}" TextWrapping="WrapWithOverflow"/>
+                    <TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.positionSharingExplanation}" TextWrapping="WrapWithOverflow" Margin="10,10,0,0"/>
                     <DockPanel Margin="0,10,0,10">
                         <Label Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.apiKeyLabel}" DockPanel.Dock="Left"/>
-                        <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=player_api_key}"  HorizontalAlignment="Stretch" DockPanel.Dock="Left"/>
+                        <TextBox HorizontalAlignment="Stretch" DockPanel.Dock="Left" LostFocus="TextBox_LostFocus">
+                            <TextBox.Text>
+                                <Binding Source="{x:Static properties:Settings.Default}" Path="player_api_key">
+                                    <Binding.ValidationRules>
+                                        <validators:APIKeyValidator/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </DockPanel>
-                    <CheckBox Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.sharePositionLabel}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=player_position_sharing}" Margin="10,10,0,5"/>
+                    <CheckBox Content="{Binding Source={StaticResource LocalizedStrings}, Path=Locale.sharePositionLabel}" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=player_position_sharing}" Margin="10,10,0,5" Checked="CheckBox_Checked"/>
                 </StackPanel>
             </GroupBox>
         </Grid>

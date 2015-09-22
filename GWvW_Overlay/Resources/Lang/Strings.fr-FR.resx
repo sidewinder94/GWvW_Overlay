@@ -271,7 +271,7 @@
     <value>Changer le rétro-éclairage du clavier en fonction de la couleur du serveur</value>
   </data>
   <data name="mumbleLinkSharedHeader" xml:space="preserve">
-    <value>Mumble Link / Position (Partagé)</value>
+    <value>Mumble Link / Position (Partagée)</value>
   </data>
   <data name="positionSharingExplanation" xml:space="preserve">
     <value>Par défaut cette fonctionnalité est DÉSACTIVÉE, pour l'activer, vous devez copier une clé d'accès à l'API (autorisation de lecture du compte et des personnages) dans la boite de texte ci-dessous.

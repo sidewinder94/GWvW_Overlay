@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.ServiceModel;
+using System.ServiceModel.PeerResolvers;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Controls;
 using GWvW_Overlay.Annotations;
+using GWvW_Overlay.Properties;
 using GWvW_Overlay_Location_Server_Contracts;
 
 namespace GWvW_Overlay.Service
 {
     [CallbackBehavior(UseSynchronizationContext = false)]
-    public class LocationService : ILocationServiceCallBack, INotifyPropertyChanged
+    public class LocationService :ILocationServiceCallBack, INotifyPropertyChanged
     {
         public delegate void ReceivedPositionsArgs(List<Position> positions);
         public event ReceivedPositionsArgs ReceivedPositions;
 
+        private Guid _clientId;
         private DuplexChannelFactory<ILocationService> _channel;
 
-
+        private Timer _updatePosittionTimer = new Timer(25);
         private ObservableCollection<Position> _positions = new ObservableCollection<Position>();
 
         public ILocationService Service { get; private set; }
@@ -47,6 +52,41 @@ namespace GWvW_Overlay.Service
         private LocationService()
         {
             ResetChannel(null, null);
+            _updatePosittionTimer.Elapsed += PushPosition;
+            StartSending();
+        }
+
+        public void StartSending()
+        {
+            if (Settings.Default.player_api_key == String.Empty ||
+                String.IsNullOrWhiteSpace(Settings.Default.player_api_key) || !Settings.Default.player_position_sharing)
+            {
+                return;
+            }
+            var coords = MainWindow.DataLink.GetCoordinates();
+            _clientId = Service.SubscribeClient(new Client()
+            {
+                AnetAccountApiKey = Settings.Default.player_api_key,
+                Position = new Position()
+                {
+                    X = coords.X,
+                    Y = coords.Y,
+                    MapId = coords.MapId
+                }
+            });
+
+            _updatePosittionTimer.Start();
+        }
+
+        private void PushPosition(object sender, EventArgs e)
+        {
+            var coords = MainWindow.DataLink.GetCoordinates();
+            Service.SendPosition(_clientId, new Position()
+            {
+                MapId = coords.MapId,
+                X = coords.X,
+                Y = coords.Y
+            });
 
         }
 
