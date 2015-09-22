@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using GWvW_Overlay.Properties;
+using GWvW_Overlay.Service;
 using Logitech_LED;
 using MumbleLink_CSharp_GW2;
 
@@ -105,6 +107,13 @@ namespace GWvW_Overlay
         public MainWindow()
         {
             RtvMatches();
+
+            var initTask = new Task(() =>
+            {
+                LocationService.Match = WvwMatch;
+                LocationService.Connection.StartSending();
+            });
+
             InitializeComponent();
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 50.0;
             SourceInitialized += Window_SourceInitialized;

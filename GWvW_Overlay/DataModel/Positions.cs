@@ -106,7 +106,7 @@ namespace GWvW_Overlay.DataModel
 
 
 
-        private GW2Link.Coordinates Transform(GW2Link.Coordinates nativeCoordinates)
+        public GW2Link.Coordinates Transform(GW2Link.Coordinates nativeCoordinates)
         {
             if (nativeCoordinates.MapId == 0) return nativeCoordinates;
 

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.ServiceModel.PeerResolvers;
@@ -11,29 +12,40 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Controls;
 using GWvW_Overlay.Annotations;
+using GWvW_Overlay.DataModel;
 using GWvW_Overlay.Properties;
 using GWvW_Overlay_Location_Server_Contracts;
+using MumbleLink_CSharp_GW2;
 
 namespace GWvW_Overlay.Service
 {
     [CallbackBehavior(UseSynchronizationContext = false)]
-    public class LocationService :ILocationServiceCallBack, INotifyPropertyChanged
+    public class LocationService : ILocationServiceCallBack, INotifyPropertyChanged
     {
-        public delegate void ReceivedPositionsArgs(List<Position> positions);
+        public static WvwMatch_ Match;
+
+        public delegate void ReceivedPositionsArgs(List<GW2Link.Coordinates> positions);
         public event ReceivedPositionsArgs ReceivedPositions;
 
-        private Guid _clientId;
+        private Guid _clientId = Guid.Empty;
         private DuplexChannelFactory<ILocationService> _channel;
 
         private Timer _updatePosittionTimer = new Timer(25);
-        private ObservableCollection<Position> _positions = new ObservableCollection<Position>();
+        private ObservableCollection<GW2Link.Coordinates> _positions = new ObservableCollection<GW2Link.Coordinates>();
 
-        public ILocationService Service { get; private set; }
+
+        private ILocationService _service;
+
+        public ILocationService Service
+        {
+            get { return _service ?? (_service = Connection._channel.CreateChannel()); }
+            private set { _service = value; }
+        }
 
 
         public static LocationService Connection { get { return Nested.Instance; } }
 
-        public ObservableCollection<Position> Positions
+        public ObservableCollection<GW2Link.Coordinates> Positions
         {
             get { return _positions; }
             set
@@ -51,9 +63,17 @@ namespace GWvW_Overlay.Service
 
         private LocationService()
         {
-            ResetChannel(null, null);
+            try
+            {
+                _channel = new DuplexChannelFactory<ILocationService>(this, "default");
+                _channel.Faulted += ResetChannel;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
             _updatePosittionTimer.Elapsed += PushPosition;
-            StartSending();
         }
 
         public void StartSending()
@@ -64,39 +84,55 @@ namespace GWvW_Overlay.Service
                 return;
             }
             var coords = MainWindow.DataLink.GetCoordinates();
-            _clientId = Service.SubscribeClient(new Client()
+            try
             {
-                AnetAccountApiKey = Settings.Default.player_api_key,
-                Position = new Position()
+                _clientId = Service.SubscribeClient(new Client()
                 {
-                    X = coords.X,
-                    Y = coords.Y,
-                    MapId = coords.MapId
-                }
-            });
-
+                    AnetAccountApiKey = Settings.Default.player_api_key,
+                    Position = new Position()
+                    {
+                        X = coords.X,
+                        Y = coords.Y,
+                        MapId = coords.MapId
+                    }
+                });
+            }
+            catch (Exception)
+            {
+                ResetChannel(this, EventArgs.Empty);
+            }
             _updatePosittionTimer.Start();
         }
 
         private void PushPosition(object sender, EventArgs e)
         {
             var coords = MainWindow.DataLink.GetCoordinates();
-            Service.SendPosition(_clientId, new Position()
+            try
             {
-                MapId = coords.MapId,
-                X = coords.X,
-                Y = coords.Y
-            });
+                Service.SendPosition(_clientId, new Position()
+                {
+                    MapId = coords.MapId,
+                    X = coords.X,
+                    Y = coords.Y
+                });
+            }
+            catch (Exception)
+            {
+                ResetChannel(this, EventArgs.Empty);
+            }
 
         }
 
-        private static void ResetChannel(object sender, EventArgs eventArgs)
+        public static void ResetChannel(object sender, EventArgs eventArgs)
         {
             try
             {
-                Connection._channel = new DuplexChannelFactory<ILocationService>(Connection, "default");
+                Connection._clientId = Guid.Empty;
+                Connection._channel = new DuplexChannelFactory<ILocationService>(sender, "default");
                 Connection._channel.Faulted += ResetChannel;
+                Connection._channel.Closed += ResetChannel;
                 Connection.Service = Connection._channel.CreateChannel();
+                Connection.StartSending();
             }
             catch (Exception ex)
             {
@@ -107,11 +143,24 @@ namespace GWvW_Overlay.Service
 
         public void ReceivePositions(List<Position> positions)
         {
+            if (Match == null)
+            {
+                return;
+            }
+            var correctedPositions = positions.AsParallel()
+                                              .Select(p => Match.PlayerPositions.Transform(new GW2Link.Coordinates
+            {
+                X = p.X,
+                Y = p.Y,
+                MapId = p.MapId
+            })).ToList();
+
+
             if (ReceivedPositions != null)
             {
-                ReceivedPositions(positions);
+                ReceivedPositions(correctedPositions);
             }
-            Positions = new ObservableCollection<Position>(positions);
+            Positions = new ObservableCollection<GW2Link.Coordinates>(correctedPositions);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -13,9 +13,18 @@ namespace GWvW_Overlay.Validators
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            return LocationService.Connection.Service.ValidateAPIKey((string)value)
+            try
+            {
+                var result = LocationService.Connection.Service.ValidateAPIKey((string)value);
+                return result
                ? ValidationResult.ValidResult
                : new ValidationResult(false, "");
+            }
+            catch (Exception)
+            {
+                LocationService.ResetChannel(this, EventArgs.Empty);
+            }
+            return new ValidationResult(false, "Connection error");
         }
     }
 }
